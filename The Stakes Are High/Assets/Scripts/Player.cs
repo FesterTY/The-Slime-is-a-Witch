@@ -24,12 +24,12 @@ public class Player : MonoBehaviour
 
         // Check if player should be flipped
         CheckFlip(moveInput);
-        moveVelocity = moveInput.normalized * moveSpeed * Time.deltaTime;
+        moveVelocity = moveInput.normalized * moveSpeed;
     }
 
     private void FixedUpdate()
     {
-        controller.Move(moveVelocity);
+        controller.Move(moveVelocity * Time.fixedDeltaTime);
     }
 
     void Flip(bool isFacingLeft)
