@@ -10,8 +10,13 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    public void Move(Vector2 _velocity)
+    public void Move(float _velocity)
     {
-        rb2d.velocity = _velocity;
+        rb2d.velocity = new Vector2(_velocity, rb2d.velocity.y);
+    }
+
+    public void Jump(float _jumpForce)
+    {
+        rb2d.AddForce(new Vector2(rb2d.velocity.x, _jumpForce), ForceMode2D.Impulse);
     }
 }

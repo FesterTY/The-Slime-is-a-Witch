@@ -5,11 +5,24 @@ public class Player : MonoBehaviour
 {
 
     PlayerController controller;
-    Vector2 moveVelocity;
     Rigidbody2D rb2d;
     SpriteRenderer spriteRenderer;
 
-    public float moveSpeed = 5f;
+    bool isGrounded;
+    bool shouldBeJumping;
+
+    float moveVelocity;
+    float moveX;
+
+    public Transform groundCheck;
+    public float checkRadius;
+    public LayerMask groundLayerMask;
+
+    public float jumpForce = 5f;
+    public float moveSpeed = 350f;
+
+    public float timeBetweenJump = 1f;
+    float timeBetweenJumpCounter;
 
     void Start()
     {
@@ -20,15 +33,26 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), rb2d.velocity.y);
+        moveX = Input.GetAxisRaw("Horizontal");
+        moveVelocity = moveX * moveSpeed;
+
+        // Check to see if player is on the ground
+        CheckIsGrounded(groundCheck.position, checkRadius, groundLayerMask, out isGrounded);
 
         // Check if player should be flipped
-        CheckFlip(moveInput);
-        moveVelocity = moveInput.normalized * moveSpeed;
+        CheckFlip(moveX);
+
+        InputToJump();
     }
 
     private void FixedUpdate()
     {
+        if (shouldBeJumping == true && isGrounded == true)
+        {
+            controller.Jump(jumpForce);
+            shouldBeJumping = false;
+        }
+
         controller.Move(moveVelocity * Time.fixedDeltaTime);
     }
 
@@ -38,17 +62,35 @@ public class Player : MonoBehaviour
         spriteRenderer.flipX = isFacingLeft;
     }
 
-    void CheckFlip(Vector2 moveInput)
+    void CheckFlip(float moveX)
     {
         // If the player is going right
-        if (moveInput.x > 0)
+        if (moveX > 0)
         {
             Flip(false); // Face right
         }
         // If the player is going left
-        else if (moveInput.x < 0)
+        else if (moveX < 0)
         {
             Flip(true); // Face left
+        }
+    }
+
+    private void CheckIsGrounded(Vector2 _circlePosition, float _circleRadius, LayerMask _whatToCheck, out bool _isGrounded)
+    {
+        _isGrounded = Physics2D.OverlapCircle(_circlePosition, _circleRadius, _whatToCheck);
+    }
+
+    public void InputToJump()
+    {
+        timeBetweenJumpCounter -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (timeBetweenJumpCounter <= 0 && isGrounded == true)
+            {
+                shouldBeJumping = true;
+                timeBetweenJumpCounter = timeBetweenJump;
+            }
         }
     }
 }
