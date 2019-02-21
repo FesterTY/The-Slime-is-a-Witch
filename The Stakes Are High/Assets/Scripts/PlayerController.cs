@@ -12,6 +12,6 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector2 _velocity)
     {
-        rb2d.MovePosition(rb2d.position + _velocity);
+        rb2d.velocity = _velocity;
     }
 }
