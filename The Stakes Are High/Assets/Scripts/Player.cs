@@ -21,7 +21,10 @@ public class Player : MonoBehaviour
     public float jumpForce = 5f;
     public float moveSpeed = 350f;
 
-    public float timeBetweenJump = 1f;
+    public int extraJumps = 1;
+    private int extraJumpsCounter = 0;
+
+    public float timeBetweenJump = 0.5f;
     float timeBetweenJumpCounter;
 
     void Start()
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        /* MOVEMENTS */
         moveX = Input.GetAxisRaw("Horizontal");
         moveVelocity = moveX * moveSpeed;
 
@@ -42,14 +46,19 @@ public class Player : MonoBehaviour
         // Check if player should be flipped
         CheckFlip(moveX);
 
-        InputToJump();
+        timeBetweenJumpCounter -= Time.deltaTime;
+        if (Input.GetAxisRaw("Jump") > 0 && timeBetweenJumpCounter <= 0)
+        {
+            shouldBeJumping = true;
+            timeBetweenJumpCounter = timeBetweenJump;
+        }
     }
 
     private void FixedUpdate()
     {
-        if (shouldBeJumping == true && isGrounded == true)
+        if (shouldBeJumping && (isGrounded || extraJumpsCounter > 0))
         {
-            controller.Jump(jumpForce);
+            controller.Jump(jumpForce, isGrounded, ref extraJumpsCounter, ref extraJumps);
             shouldBeJumping = false;
         }
 
@@ -79,18 +88,5 @@ public class Player : MonoBehaviour
     private void CheckIsGrounded(Vector2 _circlePosition, float _circleRadius, LayerMask _whatToCheck, out bool _isGrounded)
     {
         _isGrounded = Physics2D.OverlapCircle(_circlePosition, _circleRadius, _whatToCheck);
-    }
-
-    public void InputToJump()
-    {
-        timeBetweenJumpCounter -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (timeBetweenJumpCounter <= 0 && isGrounded == true)
-            {
-                shouldBeJumping = true;
-                timeBetweenJumpCounter = timeBetweenJump;
-            }
-        }
     }
 }

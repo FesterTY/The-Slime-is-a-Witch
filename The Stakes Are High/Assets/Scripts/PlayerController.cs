@@ -15,8 +15,17 @@ public class PlayerController : MonoBehaviour
         rb2d.velocity = new Vector2(_velocity, rb2d.velocity.y);
     }
 
-    public void Jump(float _jumpForce)
+    public void Jump(float _jumpForce, bool _isGrounded, ref int _extraJumpsCounter, ref int _extraJumps)
     {
+        if (_isGrounded)
+        {
+            _extraJumpsCounter = _extraJumps;
+        }
+        else
+        {
+            _extraJumpsCounter--;
+        }
+
         rb2d.AddForce(new Vector2(rb2d.velocity.x, _jumpForce), ForceMode2D.Impulse);
     }
 }
