@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.2.2" name="Ground Tiles" tilewidth="16" tileheight="16" tilecount="15" columns="5">
- <image source="../../Art/Environment/Ground Tiles.png" width="80" height="48"/>
+ <image source="../../Arts/Environment/Ground Tiles.png" width="80" height="48"/>
  <terraintypes>
   <terrain name="Ground" tile="6"/>
  </terraintypes>
