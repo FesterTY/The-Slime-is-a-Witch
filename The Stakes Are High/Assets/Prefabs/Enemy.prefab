@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7024704098873050380}
   - component: {fileID: 4561298195924229522}
   - component: {fileID: 1477822996393942026}
+  - component: {fileID: 8333100300530353396}
   - component: {fileID: 6093016713508077210}
   m_Layer: 0
   m_Name: Enemy
@@ -144,6 +145,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   wallDetectionDistance: 0.1
+--- !u!114 &8333100300530353396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8213312283184171282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ced12cbfcf011468be92de15d588a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
+  currentHealth: 0
 --- !u!61 &6093016713508077210
 BoxCollider2D:
   m_ObjectHideFlags: 0
