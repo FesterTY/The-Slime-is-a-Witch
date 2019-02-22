@@ -127,11 +127,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheck: {fileID: 1061814814}
-  checkRadius: 0.1
+  checkRadius: 0.5
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  jumpForce: 7
+  jumpForce: 10
   moveSpeed: 350
   timeBetweenJump: 0.3
 --- !u!114 &7258420360932766206
