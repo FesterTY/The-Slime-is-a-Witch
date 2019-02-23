@@ -11227,32 +11227,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3877151994545181462, guid: 1d29f06e9a5ca434eb0a0a1e01ada795,
-        type: 3}
-      propertyPath: jumpForce
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3877151994545181462, guid: 1d29f06e9a5ca434eb0a0a1e01ada795,
-        type: 3}
-      propertyPath: checkRadius
-      value: 0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071109587, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: d2152212101f1144f9487dd19470b382, type: 2}
-    - target: {fileID: 1071109587, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1071109587, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
-      propertyPath: m_Size.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1061814814, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.434
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
 --- !u!1001 &8191798333527645101

@@ -7,9 +7,11 @@ public class Player : MonoBehaviour
     PlayerController controller;
     Rigidbody2D rb2d;
     SpriteRenderer spriteRenderer;
+    LongRangedController longRanged;
 
     bool isGrounded;
     bool shouldBeJumping;
+    bool isFacingLeft;
 
     float moveVelocity;
     float moveX;
@@ -24,7 +26,7 @@ public class Player : MonoBehaviour
     public int extraJumps = 1;
     private int extraJumpsCounter = 0;
 
-    public float timeBetweenJump = 0.5f;
+    public float timeBetweenJump = 0.35f;
     float timeBetweenJumpCounter;
 
     void Start()
@@ -32,6 +34,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        longRanged = GetComponent<LongRangedController>();
     }
 
     private void Update()
@@ -44,14 +47,16 @@ public class Player : MonoBehaviour
         CheckIsGrounded(groundCheck.position, checkRadius, groundLayerMask, out isGrounded);
 
         // Check if player should be flipped
-        CheckFlip(moveX);
+        CheckFlip();
 
         timeBetweenJumpCounter -= Time.deltaTime;
-        if (Input.GetAxisRaw("Jump") > 0 && timeBetweenJumpCounter <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && timeBetweenJumpCounter <= 0)
         {
             shouldBeJumping = true;
             timeBetweenJumpCounter = timeBetweenJump;
         }
+
+        longRanged.Shoot("Shoot");
     }
 
     private void FixedUpdate()
@@ -65,23 +70,24 @@ public class Player : MonoBehaviour
         controller.Move(moveVelocity * Time.fixedDeltaTime);
     }
 
-    void Flip(bool isFacingLeft)
+    void Flip()
     {
-        // Enable flipping in X direction depending on the boolean given
-        spriteRenderer.flipX = isFacingLeft;
+        isFacingLeft = !isFacingLeft;
+
+        transform.Rotate(Vector3.up * 180f);
     }
 
-    void CheckFlip(float moveX)
+    void CheckFlip()
     {
-        // If the player is going right
-        if (moveX > 0)
+        // player is NOT facing left, but is moving left
+        if (!isFacingLeft && moveX < 0)
         {
-            Flip(false); // Face right
+            Flip();
         }
-        // If the player is going left
-        else if (moveX < 0)
+        // player is facing left, but is moving right
+        else if (isFacingLeft && moveX > 0)
         {
-            Flip(true); // Face left
+            Flip();
         }
     }
 
