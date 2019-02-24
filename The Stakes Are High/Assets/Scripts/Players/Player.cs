@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(HealthManager))]
 public class Player : MonoBehaviour
 {
 
@@ -8,7 +9,10 @@ public class Player : MonoBehaviour
     Rigidbody2D rb2d;
     SpriteRenderer spriteRenderer;
     LongRangedController longRanged;
+    Animator anim;
+    HealthManager healthManager;
 
+    bool isMoving;
     bool isGrounded;
     bool shouldBeJumping;
     bool isFacingLeft;
@@ -35,12 +39,20 @@ public class Player : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         longRanged = GetComponent<LongRangedController>();
+        anim = GetComponent<Animator>();
+        healthManager = GetComponent<HealthManager>();
     }
 
     private void Update()
     {
         /* MOVEMENTS */
+        isMoving = false;
         moveX = Input.GetAxisRaw("Horizontal");
+        if (moveX != 0)
+        {
+            isMoving = true;
+        }
+
         moveVelocity = moveX * moveSpeed;
 
         // Check to see if player is on the ground
@@ -55,6 +67,8 @@ public class Player : MonoBehaviour
             shouldBeJumping = true;
             timeBetweenJumpCounter = timeBetweenJump;
         }
+
+        anim.SetBool("isMoving", isMoving);
 
         longRanged.Shoot("Shoot");
     }
@@ -94,5 +108,13 @@ public class Player : MonoBehaviour
     private void CheckIsGrounded(Vector2 _circlePosition, float _circleRadius, LayerMask _whatToCheck, out bool _isGrounded)
     {
         _isGrounded = Physics2D.OverlapCircle(_circlePosition, _circleRadius, _whatToCheck);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            healthManager.Harm(1f);
+        }
     }
 }

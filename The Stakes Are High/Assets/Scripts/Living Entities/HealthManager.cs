@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class HealthManager : MonoBehaviour
+public class HealthManager : StateManager
 {
-    public int maxHealth;
+    public float maxHealth;
     [HideInInspector]
-    public int currentHealth;
+    public float currentHealth;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class HealthManager : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void Harm(int _damageAmount)
+    public void Harm(float _damageAmount)
     {
         currentHealth -= _damageAmount;
         Debug.Log(currentHealth);
@@ -31,7 +31,17 @@ public class HealthManager : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+
+            if (gameObject.tag == "Player")
+            {
+                PlayerDie();
+            }
         }
+    }
+
+    private void PlayerDie()
+    {
+        GameOver();
     }
 }
