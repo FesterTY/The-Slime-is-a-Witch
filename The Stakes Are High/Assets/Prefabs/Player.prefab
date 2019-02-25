@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
+  shakeDuration: 0.3
+  shakeMagnitude: 0.2
   healthText: {fileID: 0}
 --- !u!114 &8511847173074477298
 MonoBehaviour:

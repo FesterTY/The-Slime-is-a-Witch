@@ -5,21 +5,23 @@ public class StateManager : MonoBehaviour
 {
     GameObject player;
     Animator fadeAnim;
+    HealthManager healthManager;
 
-    private void Awake()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         fadeAnim = GameObject.FindGameObjectWithTag("UI").GetComponent<Animator>();
+        healthManager = player.GetComponent<HealthManager>();
     }
 
     private void Update()
     {
-        PlayerDie();
+        CheckPlayerDie();
     }
 
-    void PlayerDie()
+    void CheckPlayerDie()
     {
-        if (player.GetComponent<HealthManager>().currentHealth <= 0)
+        if (healthManager.currentHealth <= 0)
         {
             fadeAnim.SetTrigger("fadeOut");
         }

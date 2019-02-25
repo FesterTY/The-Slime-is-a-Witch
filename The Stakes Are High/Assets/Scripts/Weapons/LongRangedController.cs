@@ -8,6 +8,9 @@ public class LongRangedController : MonoBehaviour
     public float timeBetweenShots = 0.35f;
     float timeBetweenShotsCounter;
 
+    public float shakeDuration = 0.3f;
+    public float shakeMagnitude = 0.2f;
+
     public void Shoot(string inputAxis)
     {
         timeBetweenShotsCounter -= Time.deltaTime;

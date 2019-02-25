@@ -12,8 +12,12 @@ public class Destructible : MonoBehaviour
     {
         if (collision.tag == "Projectile")
         {
+            if (gameObject != null)
+            {
+                StartCoroutine(ObjectFlash());
+            }
+
             gameObject.GetComponent<HealthManager>().Harm(damageAmount);
-            StartCoroutine(ObjectFlash());
         }
     }
 
