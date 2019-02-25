@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 3877151994545181462}
   - component: {fileID: 7258420360932766206}
   - component: {fileID: 905806383580285574}
-  - component: {fileID: 3386497823736065467}
   - component: {fileID: 8511847173074477298}
   - component: {fileID: 1071109588}
   - component: {fileID: 1071109587}
@@ -131,6 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52efee7c979c724d9a0467c4c632b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageAmount: 1
+  flashTime: 0.02
   groundCheck: {fileID: 8025019693804721668}
   checkRadius: 0.25
   groundLayerMask:
@@ -166,20 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
-  timeBeforeSceneRestart: 0.25
   healthText: {fileID: 0}
---- !u!114 &3386497823736065467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2674631194453245578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4af687aeb4199214d9da90f75bd05875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8511847173074477298
 MonoBehaviour:
   m_ObjectHideFlags: 0

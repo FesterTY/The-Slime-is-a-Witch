@@ -17,12 +17,11 @@ public class Destructible : MonoBehaviour
         }
     }
 
-    IEnumerator ObjectFlash()
+    protected IEnumerator ObjectFlash()
     {
         SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-
-        renderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
+        renderer.enabled = false;
         yield return new WaitForSeconds(flashTime);
-        renderer.maskInteraction = SpriteMaskInteraction.None;
+        renderer.enabled = true;
     }
 }

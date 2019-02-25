@@ -2,7 +2,7 @@
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(HealthManager))]
-public class Player : MonoBehaviour
+public class Player : Destructible
 {
 
     PlayerController controller;
@@ -115,6 +115,7 @@ public class Player : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             healthManager.Harm(1f);
+            StartCoroutine(ObjectFlash());
         }
     }
 }
