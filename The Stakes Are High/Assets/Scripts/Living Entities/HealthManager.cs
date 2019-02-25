@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthManager : StateManager
 {
     public float maxHealth;
     [HideInInspector]
     public float currentHealth;
+
+    public Text healthText;
 
     private void Awake()
     {
@@ -24,24 +27,18 @@ public class HealthManager : StateManager
     public void Harm(float _damageAmount)
     {
         currentHealth -= _damageAmount;
-        Debug.Log(currentHealth);
+
+        if (gameObject.tag == "Player")
+        {
+            healthText.text = currentHealth.ToString();
+        }
     }
 
-    private void Die()
+    protected void Die()
     {
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
-
-            if (gameObject.tag == "Player")
-            {
-                PlayerDie();
-            }
         }
-    }
-
-    private void PlayerDie()
-    {
-        GameOver();
     }
 }
