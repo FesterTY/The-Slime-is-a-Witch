@@ -1,33 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class StateManager : MonoBehaviour
 {
-    public float timeBeforeSceneRestart = 0.25f;
     GameObject player;
+    Animator fadeAnim;
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");    
+        player = GameObject.FindGameObjectWithTag("Player");
+        fadeAnim = GameObject.FindGameObjectWithTag("UI").GetComponent<Animator>();
     }
 
     private void Update()
     {
-        GameOver();
+        PlayerDie();
     }
 
-    protected void GameOver()
+    void PlayerDie()
     {
         if (player.GetComponent<HealthManager>().currentHealth <= 0)
         {
-            StartCoroutine(RestartLevel());
+            fadeAnim.SetTrigger("fadeOut");
         }
     }
 
-    IEnumerator RestartLevel()
+    public void GameOver()
     {
-        yield return new WaitForSeconds(timeBeforeSceneRestart);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
