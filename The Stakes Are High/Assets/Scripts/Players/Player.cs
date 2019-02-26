@@ -115,7 +115,11 @@ public class Player : Destructible
         if (collision.tag == "Enemy")
         {
             healthManager.Harm(1f);
-            StartCoroutine(ObjectFlash());
+
+            if (healthManager.currentHealth > 0)
+            {
+                StartCoroutine(ObjectFlash());
+            }
         }
     }
 }

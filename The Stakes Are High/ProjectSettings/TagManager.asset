@@ -8,6 +8,9 @@ TagManager:
   - Projectile
   - StateManager
   - UI
+  - CarrotCounter
+  - Carrot
+  - CarrotManager
   layers:
   - Default
   - TransparentFX
