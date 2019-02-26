@@ -45,6 +45,19 @@ public class Player : Destructible
 
     private void Update()
     {
+        float velocityY = rb2d.velocity.y;
+        /* JUMPING ANIMATIONS */
+        anim.SetFloat("velocityY", velocityY);
+        
+        if (velocityY == 0)
+        {
+            anim.SetBool("notJumping", true);
+        }
+        else
+        {
+            anim.SetBool("notJumping", false);
+        }
+
         /* MOVEMENTS */
         isMoving = false;
         moveX = Input.GetAxisRaw("Horizontal");
@@ -77,8 +90,10 @@ public class Player : Destructible
     {
         if (shouldBeJumping && (isGrounded || extraJumpsCounter > 0))
         {
+            anim.SetTrigger("jump");
             controller.Jump(jumpForce, isGrounded, ref extraJumpsCounter, ref extraJumps);
             shouldBeJumping = false;
+            anim.SetBool("isJumping", true);
         }
 
         controller.Move(moveVelocity * Time.fixedDeltaTime);
