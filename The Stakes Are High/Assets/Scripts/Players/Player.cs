@@ -46,7 +46,6 @@ public class Player : Destructible
     private void Update()
     {
         float velocityY = rb2d.velocity.y;
-        Debug.Log(velocityY);
 
         /* JUMPING ANIMATIONS */
         anim.SetFloat("velocityY", velocityY);
