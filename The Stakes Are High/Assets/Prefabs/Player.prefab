@@ -186,6 +186,8 @@ MonoBehaviour:
     type: 3}
   shootLocation: {fileID: 2674631195143433597}
   timeBetweenShots: 0.5
+  shakeDuration: 0.3
+  shakeMagnitude: 0.2
 --- !u!50 &1071109588
 Rigidbody2D:
   serializedVersion: 4
