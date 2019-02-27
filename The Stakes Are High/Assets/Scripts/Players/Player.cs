@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
-public class Player : MonoBehaviour
+[RequireComponent(typeof(HealthManager))]
+public class Player : Destructible
 {
 
     PlayerController controller;
     Rigidbody2D rb2d;
     SpriteRenderer spriteRenderer;
+    LongRangedController longRanged;
+    Animator anim;
+    HealthManager healthManager;
 
+    bool isMoving;
     bool isGrounded;
     bool shouldBeJumping;
+    bool isFacingLeft;
 
     float moveVelocity;
     float moveX;
@@ -24,7 +30,7 @@ public class Player : MonoBehaviour
     public int extraJumps = 1;
     private int extraJumpsCounter = 0;
 
-    public float timeBetweenJump = 0.5f;
+    public float timeBetweenJump = 0.35f;
     float timeBetweenJumpCounter;
 
     void Start()
@@ -32,61 +38,104 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        longRanged = GetComponent<LongRangedController>();
+        anim = GetComponent<Animator>();
+        healthManager = GetComponent<HealthManager>();
     }
 
     private void Update()
     {
+        float velocityY = rb2d.velocity.y;
+
+        /* JUMPING ANIMATIONS */
+        anim.SetFloat("velocityY", velocityY);
+        
+        if (velocityY == 0)
+        {
+            anim.SetBool("notJumping", true);
+        }
+        else
+        {
+            anim.SetBool("notJumping", false);
+        }
+
         /* MOVEMENTS */
+        isMoving = false;
         moveX = Input.GetAxisRaw("Horizontal");
+        if (moveX != 0)
+        {
+            isMoving = true;
+        }
+
         moveVelocity = moveX * moveSpeed;
 
         // Check to see if player is on the ground
         CheckIsGrounded(groundCheck.position, checkRadius, groundLayerMask, out isGrounded);
 
         // Check if player should be flipped
-        CheckFlip(moveX);
+        CheckFlip();
 
         timeBetweenJumpCounter -= Time.deltaTime;
-        if (Input.GetAxisRaw("Jump") > 0 && timeBetweenJumpCounter <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && timeBetweenJumpCounter <= 0)
         {
             shouldBeJumping = true;
             timeBetweenJumpCounter = timeBetweenJump;
         }
+
+        anim.SetBool("isMoving", isMoving);
+
+        longRanged.Shoot("Shoot");
     }
 
     private void FixedUpdate()
     {
         if (shouldBeJumping && (isGrounded || extraJumpsCounter > 0))
         {
+            anim.SetTrigger("jump");
             controller.Jump(jumpForce, isGrounded, ref extraJumpsCounter, ref extraJumps);
             shouldBeJumping = false;
+            anim.SetBool("isJumping", true);
         }
 
         controller.Move(moveVelocity * Time.fixedDeltaTime);
     }
 
-    void Flip(bool isFacingLeft)
+    void Flip()
     {
-        // Enable flipping in X direction depending on the boolean given
-        spriteRenderer.flipX = isFacingLeft;
+        isFacingLeft = !isFacingLeft;
+
+        transform.Rotate(Vector3.up * 180f);
     }
 
-    void CheckFlip(float moveX)
+    void CheckFlip()
     {
-        // If the player is going right
-        if (moveX > 0)
+        // player is NOT facing left, but is moving left
+        if (!isFacingLeft && moveX < 0)
         {
-            Flip(false); // Face right
+            Flip();
         }
-        // If the player is going left
-        else if (moveX < 0)
+        // player is facing left, but is moving right
+        else if (isFacingLeft && moveX > 0)
         {
-            Flip(true); // Face left
+            Flip();
         }
     }
 
     private void CheckIsGrounded(Vector2 _circlePosition, float _circleRadius, LayerMask _whatToCheck, out bool _isGrounded)
     {
         _isGrounded = Physics2D.OverlapCircle(_circlePosition, _circleRadius, _whatToCheck);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            healthManager.Harm(1f);
+
+            if (healthManager.currentHealth > 0)
+            {
+                StartCoroutine(ObjectFlash());
+            }
+        }
     }
 }
