@@ -11,8 +11,20 @@ public class EnemyPatrol : MonoBehaviour
 
     bool movingLeft = true;
 
+    Animator anim;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     public void Move(float _moveSpeed)
     {
+        anim.SetBool("isMoving", true);
+        if (_moveSpeed == 0)
+        {
+            anim.SetBool("isMoving", false);
+        }
         transform.Translate(Vector2.left * _moveSpeed * Time.deltaTime);
     }
 
