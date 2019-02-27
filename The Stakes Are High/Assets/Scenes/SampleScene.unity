@@ -18083,6 +18083,10 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 810780455}
+    - target: {fileID: 1071109587, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.04
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
 --- !u!1001 &2701322422788141917
