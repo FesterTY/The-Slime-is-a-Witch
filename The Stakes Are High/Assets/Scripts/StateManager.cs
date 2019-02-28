@@ -7,6 +7,7 @@ public class StateManager : MonoBehaviour
     Animator fadeAnim;
     HealthManager healthManager;
 
+    [HideInInspector]
     public gameState currentState;
 
     public enum gameState
