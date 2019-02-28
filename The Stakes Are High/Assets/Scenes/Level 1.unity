@@ -1603,6 +1603,11 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 57704526}
+    - target: {fileID: 8025019693804721668, guid: 1d29f06e9a5ca434eb0a0a1e01ada795,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.289
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d29f06e9a5ca434eb0a0a1e01ada795, type: 3}
 --- !u!1001 &1807788684
@@ -22307,7 +22312,7 @@ PrefabInstance:
     - target: {fileID: 3587196113496947903, guid: 65fe6a09603ad784694f27141f0d3ccb,
         type: 3}
       propertyPath: m_Name
-      value: Portal
+      value: WinningPortal
       objectReference: {fileID: 0}
     - target: {fileID: 743422537589328513, guid: 65fe6a09603ad784694f27141f0d3ccb,
         type: 3}

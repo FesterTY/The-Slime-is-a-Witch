@@ -140,7 +140,7 @@ MonoBehaviour:
   jumpForce: 6
   moveSpeed: 350
   extraJumps: 1
-  timeBetweenJump: 0.35
+  timeBetweenJump: 0.2
 --- !u!114 &7258420360932766206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ced12cbfcf011468be92de15d588a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   maxHealth: 5
   currentHealth: 0
   shakeDuration: 0.3
