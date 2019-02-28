@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 2999643b91bac43409742445477ce5bf
+guid: 5495c8cfd9174074cae7932012b4a49a
 ScriptedImporter:
   fileIDToRecycleName:
-    2800000: Atlas_Well_1
+    2800000: Atlas_Portal_1
     11400000: _TilesetScriptObject
     11400002: _superAsset
-    11400004: Tile_Well_1
-    21300000: Sprite_Well_1
+    11400004: Tile_Portal_1
+    21300000: Sprite_Portal_1
   externalObjects: {}
   userData: 
   assetBundleName: 

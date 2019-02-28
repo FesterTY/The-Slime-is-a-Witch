@@ -7,6 +7,14 @@ public class StateManager : MonoBehaviour
     Animator fadeAnim;
     HealthManager healthManager;
 
+    public gameState currentState;
+
+    public enum gameState
+    {
+        Win,
+        GameOver
+    }
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -23,6 +31,7 @@ public class StateManager : MonoBehaviour
     {
         if (healthManager.currentHealth <= 0)
         {
+            currentState = gameState.GameOver;
             fadeAnim.SetTrigger("fadeOut");
         }
     }
@@ -30,5 +39,10 @@ public class StateManager : MonoBehaviour
     public void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Win()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
