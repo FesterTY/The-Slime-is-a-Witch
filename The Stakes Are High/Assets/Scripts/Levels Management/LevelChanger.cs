@@ -24,8 +24,12 @@ public class LevelChanger : MonoBehaviour
                 stateManager.GameOver();
                 break;
             // If game is neither win or game over, but level still needs changing
-            default:
-                stateManager.BringPlayerNextLevel();
+            case StateManager.gameState.Neutral:
+                stateManager.Neutral();
+                break;
+            // If player beats the entire game
+            case StateManager.gameState.GameFinished:
+                stateManager.GameFinished();
                 break;
         }
     }
@@ -33,5 +37,12 @@ public class LevelChanger : MonoBehaviour
     public void NextLevel()
     {
         fadeAnim.SetTrigger("fadeOut");
+        stateManager.SetState(StateManager.gameState.Neutral);
+    }
+
+    public void ToMainMenu()
+    {
+        fadeAnim.SetTrigger("fadeOut");
+        stateManager.SetState(StateManager.gameState.GameFinished);
     }
 }

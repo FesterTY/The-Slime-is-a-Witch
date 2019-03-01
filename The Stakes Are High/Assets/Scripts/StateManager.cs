@@ -13,7 +13,9 @@ public class StateManager : MonoBehaviour
     public enum gameState
     {
         Win,
-        GameOver
+        GameOver,
+        Neutral,
+        GameFinished
     }
 
     private void Start()
@@ -44,6 +46,11 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    public void SetState(gameState gameState)
+    {
+        currentState = gameState;
+    }
+
     public void GameOver()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -54,8 +61,13 @@ public class StateManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void BringPlayerNextLevel()
+    public void Neutral()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void GameFinished()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }
