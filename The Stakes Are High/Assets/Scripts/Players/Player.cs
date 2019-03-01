@@ -11,6 +11,7 @@ public class Player : Destructible
     LongRangedController longRanged;
     Animator anim;
     HealthManager healthManager;
+    GameManager gameManager;
 
     bool isMoving;
     bool isGrounded;
@@ -41,6 +42,7 @@ public class Player : Destructible
         longRanged = GetComponent<LongRangedController>();
         anim = GetComponent<Animator>();
         healthManager = GetComponent<HealthManager>();
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     private void Update()
@@ -76,7 +78,7 @@ public class Player : Destructible
         CheckFlip();
 
         timeBetweenJumpCounter -= Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.Space) && timeBetweenJumpCounter <= 0)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && timeBetweenJumpCounter <= 0)
         {
             shouldBeJumping = true;
             timeBetweenJumpCounter = timeBetweenJump;
@@ -85,6 +87,11 @@ public class Player : Destructible
         anim.SetBool("isMoving", isMoving);
 
         longRanged.Shoot("Shoot");
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameManager.ExitGame();
+        }
     }
 
     private void FixedUpdate()

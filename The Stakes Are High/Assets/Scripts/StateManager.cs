@@ -6,6 +6,7 @@ public class StateManager : MonoBehaviour
     GameObject player;
     Animator fadeAnim;
     HealthManager healthManager;
+    GameObject gameManager;
 
     [HideInInspector]
     public gameState currentState;
@@ -20,6 +21,7 @@ public class StateManager : MonoBehaviour
 
     private void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager");
         player = GameObject.FindGameObjectWithTag("Player");
         fadeAnim = GameObject.FindGameObjectWithTag("UI").GetComponent<Animator>();
 
@@ -58,12 +60,13 @@ public class StateManager : MonoBehaviour
 
     public void Win()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Neutral();
     }
 
     public void Neutral()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        DontDestroyOnLoad(gameManager);
     }
 
     public void GameFinished()

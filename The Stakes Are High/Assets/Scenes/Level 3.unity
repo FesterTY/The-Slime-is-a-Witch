@@ -323,6 +323,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3664157343022684268, guid: 678900ff691bb904d95627bedc8e0a7f,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: 678900ff691bb904d95627bedc8e0a7f, type: 3}
       propertyPath: m_Layer
       value: 9

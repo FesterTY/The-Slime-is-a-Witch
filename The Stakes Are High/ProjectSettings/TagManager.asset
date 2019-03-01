@@ -11,6 +11,7 @@ TagManager:
   - CarrotCounter
   - Carrot
   - CarrotManager
+  - GameManager
   layers:
   - Default
   - TransparentFX
