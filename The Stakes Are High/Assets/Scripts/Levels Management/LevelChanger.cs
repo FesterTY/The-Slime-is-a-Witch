@@ -3,12 +3,12 @@
 public class LevelChanger : MonoBehaviour
 {
     StateManager stateManager;
-    HealthManager player;
+    Animator fadeAnim;
 
-    private void Awake()
+    private void Start()
     {
+        fadeAnim = GetComponent<Animator>();
         stateManager = GameObject.FindGameObjectWithTag("StateManager").GetComponent<StateManager>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthManager>();
     }
 
     void OnFadeComplete()
@@ -20,9 +20,18 @@ public class LevelChanger : MonoBehaviour
             case StateManager.gameState.Win:
                 stateManager.Win();
                 break;
-            default:
+            case StateManager.gameState.GameOver:
                 stateManager.GameOver();
                 break;
+            // If game is neither win or game over, but level still needs changing
+            default:
+                stateManager.BringPlayerNextLevel();
+                break;
         }
+    }
+
+    public void NextLevel()
+    {
+        fadeAnim.SetTrigger("fadeOut");
     }
 }

@@ -20,12 +20,19 @@ public class StateManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         fadeAnim = GameObject.FindGameObjectWithTag("UI").GetComponent<Animator>();
-        healthManager = player.GetComponent<HealthManager>();
+
+        if (player != null)
+        {
+            healthManager = player.GetComponent<HealthManager>();
+        }
     }
 
     private void Update()
     {
-        CheckPlayerDie();
+        if (healthManager != null)
+        {
+            CheckPlayerDie();
+        }
     }
 
     void CheckPlayerDie()
@@ -43,6 +50,11 @@ public class StateManager : MonoBehaviour
     }
 
     public void Win()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void BringPlayerNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
