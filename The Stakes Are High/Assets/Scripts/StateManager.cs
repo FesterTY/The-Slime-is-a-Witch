@@ -7,6 +7,7 @@ public class StateManager : MonoBehaviour
     Animator fadeAnim;
     HealthManager healthManager;
     GameObject gameManager;
+    GameObject musicManager;
 
     [HideInInspector]
     public gameState currentState;
@@ -24,7 +25,7 @@ public class StateManager : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager");
         player = GameObject.FindGameObjectWithTag("Player");
         fadeAnim = GameObject.FindGameObjectWithTag("UI").GetComponent<Animator>();
-
+        musicManager = GameObject.FindGameObjectWithTag("MusicManager");
         if (player != null)
         {
             healthManager = player.GetComponent<HealthManager>();
@@ -65,12 +66,20 @@ public class StateManager : MonoBehaviour
 
     public void Neutral()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        DontDestroyOnLoad(gameManager);
+        NotToDestroy();
+
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentIndex + 1);
     }
 
     public void GameFinished()
     {
+        NotToDestroy();
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    public void NotToDestroy()
+    {
+        DontDestroyOnLoad(gameManager);
     }
 }
