@@ -15,10 +15,14 @@ public class HealthManager : StateManager
 
     CameraShake camShake;
 
-    private void Awake()
+    private void Start()
     {
         SetFullHealth();
-        camShake = Camera.main.GetComponent<CameraShake>();
+
+        if (Camera.main != null)
+        {
+            camShake = Camera.main.GetComponent<CameraShake>();
+        }
     }
 
     public void SetFullHealth()
