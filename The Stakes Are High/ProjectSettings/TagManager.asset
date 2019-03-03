@@ -13,6 +13,7 @@ TagManager:
   - CarrotManager
   - GameManager
   - MusicManager
+  - AudioManager
   layers:
   - Default
   - TransparentFX

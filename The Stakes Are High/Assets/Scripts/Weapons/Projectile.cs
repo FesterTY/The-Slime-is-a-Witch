@@ -7,6 +7,19 @@ public class Projectile : MonoBehaviour
     public float projectileSpeed = 10f;
     public float timeBeforeDestroy = 7f;
 
+    AudioSource impactEffect;
+    AudioManager audioManager;
+    
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        
+        if (audioManager != null)
+        {
+            impactEffect = GameObject.Find("ImpactEffect").GetComponent<AudioSource>();
+        }
+    }
+
     private void Update()
     {
         ShootForward(shootLocation.right);
@@ -23,6 +36,7 @@ public class Projectile : MonoBehaviour
     {
         if (!collision.GetComponent<Carrot>())
         {
+            audioManager.PlayEffect(impactEffect);
             Destroy(gameObject);
         }
     }
